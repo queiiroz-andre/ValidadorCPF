@@ -4,20 +4,25 @@ public class ValidadorCPF {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+//regra para solicitar o CPF mais de uma vez
+        for (int i = 0; i < 1; i++) {
+            System.out.print("Por favor, insira o CPF (Apenas números): ");
+            String cpf = scanner.nextLine();
 
-        System.out.print("Por favor, insira o CPF (Apenas números): ");
-        String cpf = scanner.nextLine();
-
-        if (validarCPF(cpf)) {
-            String estado = obterEstado(cpf);
-            System.out.println("CPF válido!");
-            System.out.println("Estado associado ao CPF: " + estado);
-        } else {
-            System.out.println("CPF inválido!");
+            if (validarCPF(cpf)) {
+                String estado = obterEstado(cpf);
+                System.out.println("CPF válido!");
+                System.out.println("Estado associado ao CPF: " + estado);
+            } else {
+                System.out.println("CPF inválido!");
+            }
         }
 
         scanner.close();
     }
+
+    // Funções validarCPF e obterEstado devem ser definidas aqui
+
 
     public static boolean validarCPF(String cpf) {
         // Implementação da validação do CPF
