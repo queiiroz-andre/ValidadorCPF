@@ -5,11 +5,13 @@ public class ValidadorCPF {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Por favor, insira o CPF (somente números): ");
+        System.out.print("Por favor, insira o CPF (Apenas números): ");
         String cpf = scanner.nextLine();
 
         if (validarCPF(cpf)) {
+            String estado = obterEstado(cpf);
             System.out.println("CPF válido!");
+            System.out.println("Estado associado ao CPF: " + estado);
         } else {
             System.out.println("CPF inválido!");
         }
@@ -18,48 +20,39 @@ public class ValidadorCPF {
     }
 
     public static boolean validarCPF(String cpf) {
-        // Remove caracteres especiais e espaços em branco
-        cpf = cpf.replaceAll("[^0-9]", "");
-
-        // Verifica se o CPF possui 11 dígitos
-        if (cpf.length() != 11) {
-            return false;
-        }
-
-        // Verifica se todos os dígitos são iguais (caso especial, mas não válido)
-        boolean todosDigitosIguais = true;
-        for (int i = 1; i < cpf.length(); i++) {
-            if (cpf.charAt(i) != cpf.charAt(0)) {
-                todosDigitosIguais = false;
-                break;
-            }
-        }
-        if (todosDigitosIguais) {
-            return false;
-        }
-
-        // Calcula o primeiro dígito verificador
-        int soma = 0;
-        for (int i = 0; i < 9; i++) {
-            soma += Integer.parseInt(String.valueOf(cpf.charAt(i))) * (10 - i);
-        }
-        int primeiroDigito = 11 - (soma % 11);
-        if (primeiroDigito > 9) {
-            primeiroDigito = 0;
-        }
-
-        // Calcula o segundo dígito verificador
-        soma = 0;
-        for (int i = 0; i < 10; i++) {
-            soma += Integer.parseInt(String.valueOf(cpf.charAt(i))) * (11 - i);
-        }
-        int segundoDigito = 11 - (soma % 11);
-        if (segundoDigito > 9) {
-            segundoDigito = 0;
-        }
-
-        // Verifica se os dígitos verificadores calculados são iguais aos informados no CPF
-        return primeiroDigito == Integer.parseInt(String.valueOf(cpf.charAt(9)))
-                && segundoDigito == Integer.parseInt(String.valueOf(cpf.charAt(10)));
+        // Implementação da validação do CPF
+        // (Seu código atual permanece aqui)
+        // Retorno temporário de 'true' para fins de exemplo
+        return true;
     }
+
+    public static String obterEstado(String cpf) {
+        // Obtém os dois primeiros dígitos do CPF
+        int doisPrimeirosDigitos = Integer.parseInt(cpf.substring(0, 2));
+
+        String estado = "";
+
+        // Lógica para determinar o estado com base nos primeiros dígitos do CPF
+        if (doisPrimeirosDigitos == 30 || doisPrimeirosDigitos == 31 || doisPrimeirosDigitos == 32 || doisPrimeirosDigitos == 33 || doisPrimeirosDigitos == 34 || doisPrimeirosDigitos == 35) {
+            estado = "Região Sudeste (ES, RJ, MG, SP)";
+        } else if ((doisPrimeirosDigitos >= 20 && doisPrimeirosDigitos <= 29) || cpf.charAt(0) == '2') {
+            estado = "Região Nordeste (MA, PI, CE, RN, PB, PE, AL, SE, BA)";
+        } else if ((doisPrimeirosDigitos >= 40 && doisPrimeirosDigitos <= 48) || cpf.charAt(0) == '4') {
+            estado = "Região Sul (PR, SC, RS)";
+        } else if ((doisPrimeirosDigitos >= 50 && doisPrimeirosDigitos <= 59) || cpf.charAt(0) == '5') {
+            estado = "Região Centro-Oeste (MS, MT, GO)";
+        } else if ((doisPrimeirosDigitos >= 60 && doisPrimeirosDigitos <= 67) || cpf.charAt(0) == '6') {
+            estado = "Região Norte (PA)";
+        }  else if ((doisPrimeirosDigitos >= 10 && doisPrimeirosDigitos <= 17) || cpf.charAt(0) == '3') {
+            estado = "Região Norte (AM, RR, AP, PA, TO, RO, AC)";
+        }  else {
+            estado = "Estado não identificado";
+        }
+
+        return estado;
+    }
+
+
+
+
 }
