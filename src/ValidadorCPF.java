@@ -5,7 +5,7 @@ public class ValidadorCPF {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Por favor, insira o CPF (somente números): ");
+        System.out.print("Por favor, insira o CPF (Apenas números): ");
         String cpf = scanner.nextLine();
 
         if (validarCPF(cpf)) {
